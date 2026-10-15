@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Corner Pocket – 8 Ball Pool</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="logo" href="#top">Corner Pocket</a>
+    <nav><a href="#why">Why play</a><a href="#join">Join</a></nav>
+  </header>
+
+  <main id="top">
+    <h1>Pull back. Let go. Sink the eight.</h1>
+    <p class="lede">Online 8 ball pool with real table physics. Try the table below: drag anywhere to aim, then release to shoot.</p>
+    <a class="btn" href="#join">Get early access</a><a class="btn ghost" href="#why">See how it plays</a>
+
+    <div class="table-wrap">
+      <canvas id="t" width="1600" height="840" tabindex="0" aria-label="Playable pool table. Drag with mouse or touch to aim and release to shoot the white ball."></canvas>
+    </div>
+    <div class="bar">
+      <span id="status" aria-live="polite">Drag back from anywhere, then release to break.</span>
+      <span><span id="count">Potted: 0</span> &nbsp; <button id="reset" type="button">Re-rack</button></span>
+    </div>
+
+    <section class="cols" id="why">
+      <div><h2>Play a friend</h2><p>Send a link and you're at the same table in seconds. No download, no account needed for a casual game.</p></div>
+      <div><h2>Climb the ladder</h2><p>Ranked tables match you with players at your level. Win streaks move you up; bad breaks don't cost you much.</p></div>
+      <div><h2>Practice alone</h2><p>Set up trick shots and run drills until the bank shot feels automatic.</p></div>
+    </section>
+
+    <section class="join" id="join">
+      <h2>Rack 'em up with us</h2>
+      <p>Join the waitlist and we'll email you the day the tables open.</p>
+      <form id="f">
+        <input id="email" type="email" required placeholder="you@example.com" aria-label="Email address" autocomplete="email">
+        <button class="btn" type="submit">Join the waitlist</button>
+      </form>
+      <div id="msg" aria-live="polite"></div>
+    </section>
+  </main>
+  <footer>Corner Pocket &copy; 2026. Made for people who say "one more game."</footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
