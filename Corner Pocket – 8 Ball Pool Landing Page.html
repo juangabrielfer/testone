@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Corner Pocket – 8 Ball Pool</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef0e8; --ink:#13281f; --muted:#4b6156; --line:#c5cdbf; --felt:#0e6b50; --felt2:#0a5640;
+  --wood:#4a2b1a; --brass:#b98a2e; --btn:#13281f; --btnink:#f4f1e8;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#0b1a14;--ink:#eef0e6;--muted:#9fb4a8;--line:#24382e;--btn:#e7b84c;--btnink:#1a1206;--brass:#e7b84c}
+}
+:root[data-theme="dark"]{--bg:#0b1a14;--ink:#eef0e6;--muted:#9fb4a8;--line:#24382e;--btn:#e7b84c;--btnink:#1a1206;--brass:#e7b84c}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Figtree,system-ui,sans-serif;font-size:17px;line-height:1.55}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+header{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.logo{font-family:"Alfa Slab One",Georgia,serif;font-size:22px;text-decoration:none}
+nav a{margin-left:22px;text-decoration:none;color:var(--muted)}
+nav a:hover,nav a:focus-visible{color:var(--ink)}
+h1{font-family:"Alfa Slab One",Georgia,serif;font-weight:400;font-size:clamp(38px,7vw,76px);line-height:1.02;margin:28px 0 14px;max-width:12ch;letter-spacing:.01em}
+.lede{max-width:46ch;color:var(--muted);font-size:19px;margin:0 0 26px}
+.btn{display:inline-block;background:var(--btn);color:var(--btnink);border:0;border-radius:6px;padding:13px 22px;font:600 16px Figtree,sans-serif;cursor:pointer;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink);margin-left:8px}
+.btn:focus-visible,input:focus-visible,canvas:focus-visible,a:focus-visible{outline:3px solid var(--brass);outline-offset:3px}
+.table-wrap{margin:34px 0 10px;background:var(--wood);padding:16px;border-radius:18px;box-shadow:0 0 0 3px var(--brass) inset}
+canvas{display:block;width:100%;height:auto;border-radius:6px;touch-action:none;cursor:crosshair;background:var(--felt)}
+.bar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;color:var(--muted);font-size:15px;margin-bottom:56px}
+.bar button{background:none;border:1.5px solid var(--line);color:var(--ink);border-radius:6px;padding:7px 14px;font:600 14px Figtree,sans-serif;cursor:pointer}
+.bar button:hover{border-color:var(--ink)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:34px;padding:34px 0;border-top:1px solid var(--line)}
+.cols h2{font-family:"Alfa Slab One",Georgia,serif;font-weight:400;font-size:24px;margin:0 0 8px}
+.cols p{margin:0;color:var(--muted)}
+.join{background:var(--felt);color:#f1f5ee;border-radius:18px;padding:40px 28px;margin:30px 0 50px;display:grid;gap:18px}
+.join h2{font-family:"Alfa Slab One",Georgia,serif;font-weight:400;font-size:clamp(28px,4vw,40px);margin:0}
+.join p{margin:0;max-width:48ch;opacity:.9}
+form{display:flex;gap:10px;flex-wrap:wrap}
+input{flex:1 1 240px;padding:13px 14px;border-radius:6px;border:0;font:16px Figtree,sans-serif;background:#f4f1e8;color:#13281f}
+.join .btn{background:#e7b84c;color:#1a1206}
+#msg{min-height:1.5em;font-weight:600}
+footer{padding:24px 0 40px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="logo" href="#top">Corner Pocket</a>
+    <nav><a href="#why">Why play</a><a href="#join">Join</a></nav>
+  </header>
+
+  <main id="top">
+    <h1>Pull back. Let go. Sink the eight.</h1>
+    <p class="lede">Online 8 ball pool with real table physics. Try the table below: drag anywhere to aim, then release to shoot.</p>
+    <a class="btn" href="#join">Get early access</a><a class="btn ghost" href="#why">See how it plays</a>
+
+    <div class="table-wrap">
+      <canvas id="t" width="1600" height="840" tabindex="0" aria-label="Playable pool table. Drag with mouse or touch to aim and release to shoot the white ball."></canvas>
+    </div>
+    <div class="bar">
+      <span id="status" aria-live="polite">Drag back from anywhere, then release to break.</span>
+      <span><span id="count">Potted: 0</span> &nbsp; <button id="reset" type="button">Re-rack</button></span>
+    </div>
+
+    <section class="cols" id="why">
+      <div><h2>Play a friend</h2><p>Send a link and you're at the same table in seconds. No download, no account needed for a casual game.</p></div>
+      <div><h2>Climb the ladder</h2><p>Ranked tables match you with players at your level. Win streaks move you up; bad breaks don't cost you much.</p></div>
+      <div><h2>Practice alone</h2><p>Set up trick shots and run drills until the bank shot feels automatic.</p></div>
+    </section>
+
+    <section class="join" id="join">
+      <h2>Rack 'em up with us</h2>
+      <p>Join the waitlist and we'll email you the day the tables open.</p>
+      <form id="f">
+        <input id="email" type="email" required placeholder="you@example.com" aria-label="Email address" autocomplete="email">
+        <button class="btn" type="submit">Join the waitlist</button>
+      </form>
+      <div id="msg" aria-live="polite"></div>
+    </section>
+  </main>
+  <footer>Corner Pocket &copy; 2026. Made for people who say "one more game."</footer>
+</div>
+
+<script>
+(function(){
+  var cv=document.getElementById('t'), ctx=cv.getContext('2d');
+  var W=800,H=420,R=11,PR=22;
+  ctx.scale(2,2);
+  var COL=['#f1efe6','#f2c230','#1f4fa8','#d0312d','#5b2a86','#ee7d1c','#1d7a3e','#7a1f2b','#111111'];
+  var pockets=[[0,0],[W/2,0],[W,0],[0,H],[W/2,H],[W,H]];
+  var balls=[], potted=0, aim=null, cue, statusEl=document.getElementById('status'), countEl=document.getElementById('count');
+
+  function rack(){
+    balls=[]; potted=0; countEl.textContent='Potted: 0';
+    cue={x:200,y:H/2,vx:0,vy:0,n:0,on:true}; balls.push(cue);
+    var nums=[1,2,3,4,5,6,7,9,10,11,12,13,14,15];
+    for(var i=nums.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=nums[i];nums[i]=nums[j];nums[j]=t;}
+    var k=0, dx=R*1.74+.5, dy=R*2+.6;
+    for(var c=0;c<5;c++)for(var r=0;r<=c;r++){
+      var mid=(c===2&&r===1), n=mid?8:nums[k++];
+      balls.push({x:540+c*dx,y:H/2+(r-c/2)*dy,vx:0,vy:0,n:n,on:true});
+    }
+    statusEl.textContent='Drag back from anywhere, then release to break.';
+  }
+
+  function moving(){return balls.some(function(b){return b.on&&(Math.abs(b.vx)>.04||Math.abs(b.vy)>.04);});}
+
+  function step(){
+    for(var s=0;s<4;s++){
+      balls.forEach(function(b){
+        if(!b.on)return;
+        b.x+=b.vx/4; b.y+=b.vy/4;
+        for(var p=0;p<6;p++){
+          var ddx=b.x-pockets[p][0], ddy=b.y-pockets[p][1];
+          if(ddx*ddx+ddy*ddy<PR*PR){sink(b);return;}
+        }
+        if(b.x<R){b.x=R;b.vx=Math.abs(b.vx)*.9;}
+        if(b.x>W-R){b.x=W-R;b.vx=-Math.abs(b.vx)*.9;}
+        if(b.y<R){b.y=R;b.vy=Math.abs(b.vy)*.9;}
+        if(b.y>H-R){b.y=H-R;b.vy=-Math.abs(b.vy)*.9;}
+      });
+      for(var i=0;i<balls.length;i++)for(var j=i+1;j<balls.length;j++){
+        var a=balls[i],b=balls[j]; if(!a.on||!b.on)continue;
+        var dx=b.x-a.x,dy=b.y-a.y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<R*2&&d>0){
+          var nx=dx/d,ny=dy/d,ov=(R*2-d)/2;
+          a.x-=nx*ov;a.y-=ny*ov;b.x+=nx*ov;b.y+=ny*ov;
+          var dv=(a.vx-b.vx)*nx+(a.vy-b.vy)*ny;
+          if(dv>0){a.vx-=dv*nx;a.vy-=dv*ny;b.vx+=dv*nx;b.vy+=dv*ny;}
+        }
+      }
+    }
+    balls.forEach(function(b){
+      if(!b.on)return;
+      b.vx*=.987;b.vy*=.987;
+      if(Math.abs(b.vx)<.03&&Math.abs(b.vy)<.03){b.vx=0;b.vy=0;}
+    });
+  }
+
+  function sink(b){
+    b.on=false;b.vx=b.vy=0;
+    if(b===cue){statusEl.textContent='Scratch! The white ball is back on the table.';return;}
+    potted++;countEl.textContent='Potted: '+potted;
+    statusEl.textContent=b.n===8?'The eight ball is down. Re-rack to play again.':'Ball '+b.n+' potted.';
+  }
+
+  function drawBall(b){
+    var c=COL[b.n>8?b.n-8:b.n];
+    ctx.save();ctx.translate(b.x,b.y);
+    ctx.beginPath();ctx.arc(1.5,2.5,R,0,7);ctx.fillStyle='rgba(0,0,0,.28)';ctx.fill();
+    ctx.beginPath();ctx.arc(0,0,R,0,7);ctx.fillStyle=b.n>8?'#f1efe6':c;ctx.fill();
+    if(b.n>8){ctx.save();ctx.beginPath();ctx.arc(0,0,R,0,7);ctx.clip();ctx.fillStyle=c;ctx.fillRect(-R,-R*.55,R*2,R*1.1);ctx.restore();}
+    if(b.n>0){ctx.beginPath();ctx.arc(0,0,R*.48,0,7);ctx.fillStyle='#f6f3ea';ctx.fill();ctx.fillStyle='#111';ctx.font='bold 7.5px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(b.n,0,.5);}
+    ctx.beginPath();ctx.arc(-3.5,-4,2.6,0,7);ctx.fillStyle='rgba(255,255,255,.45)';ctx.fill();
+    ctx.restore();
+  }
+
+  function draw(){
+    var g=ctx.createRadialGradient(W/2,H/2,60,W/2,H/2,W*.65);
+    g.addColorStop(0,'#12805f');g.addColorStop(1,'#0a5640');
+    ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    ctx.strokeStyle='rgba(255,255,255,.18)';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(250,0);ctx.lineTo(250,H);ctx.stroke();
+    ctx.beginPath();ctx.arc(540,H/2,3,0,7);ctx.fillStyle='rgba(255,255,255,.3)';ctx.fill();
+    pockets.forEach(function(p){ctx.beginPath();ctx.arc(p[0],p[1],PR,0,7);ctx.fillStyle='#050a08';ctx.fill();});
+    if(aim&&!moving()&&cue.on){
+      var dx=aim.sx-aim.x,dy=aim.sy-aim.y,len=Math.min(Math.sqrt(dx*dx+dy*dy),160);
+      if(len>4){
+        var ang=Math.atan2(dy,dx),ux=Math.cos(ang),uy=Math.sin(ang);
+        ctx.setLineDash([6,6]);ctx.strokeStyle='rgba(255,255,255,.8)';ctx.lineWidth=2;
+        ctx.beginPath();ctx.moveTo(cue.x,cue.y);ctx.lineTo(cue.x+ux*260,cue.y+uy*260);ctx.stroke();ctx.setLineDash([]);
+        ctx.strokeStyle='#c98f3a';ctx.lineWidth=5;ctx.lineCap='round';
+        ctx.beginPath();ctx.moveTo(cue.x-ux*(R+6+len*.4),cue.y-uy*(R+6+len*.4));ctx.lineTo(cue.x-ux*(R+6+len*.4+170),cue.y-uy*(R+6+len*.4+170));ctx.stroke();
+        ctx.fillStyle='rgba(0,0,0,.35)';ctx.fillRect(14,H-26,120,10);
+        ctx.fillStyle=len>110?'#d0312d':'#e7b84c';ctx.fillRect(14,H-26,120*len/160,10);
+      }
+    }
+    balls.forEach(function(b){if(b.on)drawBall(b);});
+  }
+
+  function pos(e){var r=cv.getBoundingClientRect();return{x:(e.clientX-r.left)*W/r.width,y:(e.clientY-r.top)*H/r.height};}
+  cv.addEventListener('pointerdown',function(e){
+    if(moving())return;
+    if(!cue.on){cue.on=true;cue.x=200;cue.y=H/2;cue.vx=cue.vy=0;}
+    var p=pos(e);aim={sx:p.x,sy:p.y,x:p.x,y:p.y};cv.setPointerCapture(e.pointerId);
+  });
+  cv.addEventListener('pointermove',function(e){if(aim){var p=pos(e);aim.x=p.x;aim.y=p.y;}});
+  function release(){
+    if(!aim)return;
+    var dx=aim.sx-aim.x,dy=aim.sy-aim.y,len=Math.min(Math.sqrt(dx*dx+dy*dy),160);
+    if(len>4&&cue.on){var a=Math.atan2(dy,dx),sp=len/160*26;cue.vx=Math.cos(a)*sp;cue.vy=Math.sin(a)*sp;statusEl.textContent='Shot away.';}
+    aim=null;
+  }
+  cv.addEventListener('pointerup',release);
+  cv.addEventListener('pointercancel',function(){aim=null;});
+  document.getElementById('reset').addEventListener('click',rack);
+
+  function loop(){step();draw();requestAnimationFrame(loop);}
+  rack();loop();
+
+  document.getElementById('f').addEventListener('submit',function(e){
+    e.preventDefault();
+    document.getElementById('msg').textContent="You're on the list. We'll write to "+document.getElementById('email').value+" when tables open.";
+    this.reset();
+  });
+})();
+</script>
+</body>
+</html>
